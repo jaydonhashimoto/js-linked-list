@@ -123,6 +123,26 @@ class LinkedList {
       current = current.next;
     }
   }
+
+  //function that reverses the list
+  reverse() {
+    let current = this.head;
+    let previous,
+      next = null;
+
+    while (current) {
+      //store next
+      next = current.next;
+
+      //reverse current node's pointer
+      current.next = previous;
+
+      //move pointers one position ahead
+      previous = current;
+      current = next;
+    }
+    this.head = previous;
+  }
 }
 
 const ll = new LinkedList();
@@ -133,9 +153,7 @@ ll.insertFirst(300);
 ll.insertLast(400);
 ll.insertAt(500, 2);
 
-ll.removeAt(2);
-ll.getAt(0);
-
-ll.clearList();
-
+ll.printListData();
+console.log('reversed list:');
+ll.reverse();
 ll.printListData();
