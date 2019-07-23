@@ -145,15 +145,54 @@ class LinkedList {
   }
 }
 
+class MergedSortedList {
+  sortedMerge(headA, headB) {
+    //a dummy first node to hang result on
+    let dummyNode = new Node(0);
+    //tail points to the last result node
+    let tail = dummyNode;
+
+    while (true) {
+      //if either list runs out, use other list
+      if (!headA) {
+        tail.next = headB;
+        break;
+      } else if (!headB) {
+        tail.next = headA;
+        break;
+      }
+
+      //compare data, append to tail and advance head
+      if (headA.data <= headB.data) {
+        tail.next = headA;
+        headA = headA.next;
+      } else {
+        tail.next = headB;
+        headB = headB.next;
+      }
+
+      //advance tail
+      tail = tail.next;
+    }
+    return dummyNode.next;
+  }
+}
+
 const ll = new LinkedList();
+const ll2 = new LinkedList();
 
 ll.insertFirst(100);
 ll.insertFirst(200);
 ll.insertFirst(300);
-ll.insertLast(400);
-ll.insertAt(500, 2);
+ll2.insertFirst(1);
+ll2.insertFirst(2);
+ll2.insertFirst(3);
+// ll.insertLast(400);
+// ll.insertAt(500, 2);
 
-ll.printListData();
-console.log('reversed list:');
-ll.reverse();
+// ll.printListData();
+// console.log('reversed list:');
+// ll.reverse();
+// ll.printListData();
+ll.head = new MergedSortedList().sortedMerge(ll.head, ll2.head);
 ll.printListData();
